@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Berita - Informasi Terkini</title>
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .active-nav {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .news-card {
+            transition: all 0.3s ease;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <!-- Header & Navigation -->
@@ -13,19 +26,19 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-2 cursor-pointer" onclick="showPage('beranda')">
                     <i class="fas fa-newspaper text-blue-600 text-2xl"></i>
                     <h1 class="text-2xl font-bold text-gray-800">Portal<span class="text-blue-600">Berita</span></h1>
                 </div>
                 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Beranda</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Politik</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Ekonomi</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Teknologi</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Olahraga</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Hiburan</a>
+                    <a href="#" class="nav-item active-nav" onclick="showPage('beranda')">Beranda</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('politik')">Politik</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('ekonomi')">Ekonomi</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('teknologi')">Teknologi</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('olahraga')">Olahraga</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('hiburan')">Hiburan</a>
                 </nav>
                 
                 <!-- Search & Mobile Menu -->
@@ -34,9 +47,21 @@
                         <i class="fas fa-search text-gray-500 mr-2"></i>
                         <input type="text" placeholder="Cari berita..." class="bg-transparent focus:outline-none w-40">
                     </div>
-                    <button class="md:hidden text-gray-700">
+                    <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200">
+                <div class="flex flex-col space-y-4">
+                    <a href="#" class="nav-item active-nav" onclick="showPage('beranda'); toggleMobileMenu()">Beranda</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('politik'); toggleMobileMenu()">Politik</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('ekonomi'); toggleMobileMenu()">Ekonomi</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('teknologi'); toggleMobileMenu()">Teknologi</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('olahraga'); toggleMobileMenu()">Olahraga</a>
+                    <a href="#" class="nav-item text-gray-700 hover:text-blue-600 font-medium" onclick="showPage('hiburan'); toggleMobileMenu()">Hiburan</a>
                 </div>
             </div>
         </div>
@@ -52,192 +77,337 @@
         </div>
     </div>
 
+    <!-- Main Content Area -->
     <main class="container mx-auto px-4 py-8">
-        <!-- Featured News -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-blue-500 inline-block">Berita Utama</h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Main Featured -->
-                <div class="lg:col-span-2 bg-white rounded-xl shadow-md overflow-hidden">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')"></div>
-                    <div class="p-6">
-                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded mb-2">POLITIK</span>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">Pemerintah Umumkan Rencana Reformasi Pendidikan Nasional</h3>
-                        <p class="text-gray-600 mb-4">Pemerintah mengumumkan rencana besar untuk mereformasi sistem pendidikan nasional dengan fokus pada peningkatan kualitas guru dan kurikulum yang relevan dengan kebutuhan industri.</p>
-                        <div class="flex items-center text-sm text-gray-500">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&h=50&q=80" alt="Reporter" class="w-8 h-8 rounded-full mr-2">
-                            <span>John Doe</span>
-                            <span class="mx-2">•</span>
-                            <span>2 jam yang lalu</span>
+        <!-- Beranda Page -->
+        <div id="beranda" class="page-content">
+            <!-- Featured News -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-blue-500 inline-block">Berita Utama</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Main Featured -->
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-md overflow-hidden news-card">
+                        <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')"></div>
+                        <div class="p-6">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded mb-2">POLITIK</span>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Pemerintah Umumkan Rencana Reformasi Pendidikan Nasional</h3>
+                            <p class="text-gray-600 mb-4">Pemerintah mengumumkan rencana besar untuk mereformasi sistem pendidikan nasional dengan fokus pada peningkatan kualitas guru dan kurikulum yang relevan dengan kebutuhan industri.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&h=50&q=80" alt="Reporter" class="w-8 h-8 rounded-full mr-2">
+                                <span>John Doe</span>
+                                <span class="mx-2">•</span>
+                                <span>2 jam yang lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Side Featured -->
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                            <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                            <div class="p-4">
+                                <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded mb-2">EKONOMI</span>
+                                <h4 class="font-bold text-gray-800 mb-2">Inflasi Turun ke Level Terendah dalam 3 Tahun</h4>
+                                <div class="flex items-center text-xs text-gray-500">
+                                    <span>Jane Smith</span>
+                                    <span class="mx-2">•</span>
+                                    <span>5 jam yang lalu</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                            <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                            <div class="p-4">
+                                <span class="inline-block bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded mb-2">TEKNOLOGI</span>
+                                <h4 class="font-bold text-gray-800 mb-2">Startup Lokal Raik Pendanaan Seri B Senilai $50 Juta</h4>
+                                <div class="flex items-center text-xs text-gray-500">
+                                    <span>Alex Johnson</span>
+                                    <span class="mx-2">•</span>
+                                    <span>7 jam yang lalu</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
+            
+            <!-- Latest News -->
+            <section class="mb-12">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 pb-2 border-b-2 border-blue-500 inline-block">Berita Terbaru</h2>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                        Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
                 
-                <!-- Side Featured -->
-                <div class="space-y-6">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- News Item 1 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
                         <div class="p-4">
-                            <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded mb-2">EKONOMI</span>
-                            <h4 class="font-bold text-gray-800 mb-2">Inflasi Turun ke Level Terendah dalam 3 Tahun</h4>
+                            <span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded mb-2">OLAHRAGA</span>
+                            <h4 class="font-bold text-gray-800 mb-2">Timnas U-23 Siap Hadapi Turnamen Kualifikasi Asia</h4>
+                            <p class="text-gray-600 text-sm mb-4">Pelatih timnas U-23 mengumumkan skuat akhir untuk menghadapi turnamen kualifikasi Piala Asia U-23 yang akan digelar bulan depan.</p>
                             <div class="flex items-center text-xs text-gray-500">
-                                <span>Jane Smith</span>
+                                <span>Budi Santoso</span>
+                                <span class="mx-2">•</span>
+                                <span>3 jam yang lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- News Item 2 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1593115057322-e94b77572f20?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                        <div class="p-4">
+                            <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-1 rounded mb-2">HIBURAN</span>
+                            <h4 class="font-bold text-gray-800 mb-2">Film "Negeri di Ujung Tanduk" Raih Penghargaan Internasional</h4>
+                            <p class="text-gray-600 text-sm mb-4">Film karya sineas Indonesia berhasil meraih penghargaan di Festival Film Cannes untuk kategori film terbaik.</p>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <span>Dewi Lestari</span>
                                 <span class="mx-2">•</span>
                                 <span>5 jam yang lalu</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                    <!-- News Item 3 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
                         <div class="p-4">
-                            <span class="inline-block bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded mb-2">TEKNOLOGI</span>
-                            <h4 class="font-bold text-gray-800 mb-2">Startup Lokal Raik Pendanaan Seri B Senilai $50 Juta</h4>
+                            <span class="inline-block bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded mb-2">BISNIS</span>
+                            <h4 class="font-bold text-gray-800 mb-2">Perusahaan Teknologi Buka 1.000 Lowongan Kerja Baru</h4>
+                            <p class="text-gray-600 text-sm mb-4">Perusahaan teknologi terkemuka mengumumkan ekspansi besar-besaran dengan membuka 1.000 lowongan kerja di berbagai bidang.</p>
                             <div class="flex items-center text-xs text-gray-500">
-                                <span>Alex Johnson</span>
+                                <span>Rina Wijaya</span>
                                 <span class="mx-2">•</span>
-                                <span>7 jam yang lalu</span>
+                                <span>8 jam yang lalu</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            
+            <!-- Category Section -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-blue-500 inline-block">Kategori Berita</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="#" class="bg-white rounded-lg shadow p-6 text-center hover:bg-blue-50 transition duration-300 news-card" onclick="showPage('politik')">
+                        <i class="fas fa-landmark text-blue-600 text-2xl mb-3"></i>
+                        <h3 class="font-bold text-gray-800">Politik</h3>
+                    </a>
+                    <a href="#" class="bg-white rounded-lg shadow p-6 text-center hover:bg-green-50 transition duration-300 news-card" onclick="showPage('ekonomi')">
+                        <i class="fas fa-chart-line text-green-600 text-2xl mb-3"></i>
+                        <h3 class="font-bold text-gray-800">Ekonomi</h3>
+                    </a>
+                    <a href="#" class="bg-white rounded-lg shadow p-6 text-center hover:bg-purple-50 transition duration-300 news-card" onclick="showPage('teknologi')">
+                        <i class="fas fa-laptop-code text-purple-600 text-2xl mb-3"></i>
+                        <h3 class="font-bold text-gray-800">Teknologi</h3>
+                    </a>
+                    <a href="#" class="bg-white rounded-lg shadow p-6 text-center hover:bg-yellow-50 transition duration-300 news-card" onclick="showPage('olahraga')">
+                        <i class="fas fa-running text-yellow-600 text-2xl mb-3"></i>
+                        <h3 class="font-bold text-gray-800">Olahraga</h3>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Popular News -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-blue-500 inline-block">Berita Populer</h2>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                        <!-- Popular Item 1 -->
+                        <div class="border-r border-gray-200 p-4">
+                            <div class="flex items-start">
+                                <span class="text-2xl font-bold text-blue-600 mr-3">1</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Pemerintah Umumkan Bantuan Sosial Tahap Kedua</h4>
+                                    <p class="text-gray-600 text-sm">2.5K dilihat</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Popular Item 2 -->
+                        <div class="border-r border-gray-200 p-4">
+                            <div class="flex items-start">
+                                <span class="text-2xl font-bold text-blue-600 mr-3">2</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Harga Emas Dunia Capai Rekor Tertinggi</h4>
+                                    <p class="text-gray-600 text-sm">1.8K dilihat</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Popular Item 3 -->
+                        <div class="border-r border-gray-200 p-4">
+                            <div class="flex items-start">
+                                <span class="text-2xl font-bold text-blue-600 mr-3">3</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Rilis Smartphone Flagship dengan Fitur AI Terbaru</h4>
+                                    <p class="text-gray-600 text-sm">1.5K dilihat</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Popular Item 4 -->
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <span class="text-2xl font-bold text-blue-600 mr-3">4</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Persib Juara Liga 1 Musim Ini</h4>
+                                    <p class="text-gray-600 text-sm">1.2K dilihat</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
         
-        <!-- Latest News -->
-        <section class="mb-12">
+        <!-- Politik Page -->
+        <div id="politik" class="page-content hidden">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 pb-2 border-b-2 border-blue-500 inline-block">Berita Terbaru</h2>
-                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                    Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
-                </a>
+                <h2 class="text-2xl font-bold text-gray-800 pb-2 border-b-2 border-blue-500 inline-block">Berita Politik</h2>
+                <button class="text-blue-600 hover:text-blue-800 font-medium flex items-center" onclick="showPage('beranda')">
+                    <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda
+                </button>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- News Item 1 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                <!-- Politics News Items -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
                     <div class="p-4">
-                        <span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded mb-2">OLAHRAGA</span>
-                        <h4 class="font-bold text-gray-800 mb-2">Timnas U-23 Siap Hadapi Turnamen Kualifikasi Asia</h4>
-                        <p class="text-gray-600 text-sm mb-4">Pelatih timnas U-23 mengumumkan skuat akhir untuk menghadapi turnamen kualifikasi Piala Asia U-23 yang akan digelar bulan depan.</p>
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded mb-2">POLITIK</span>
+                        <h4 class="font-bold text-gray-800 mb-2">Parlemen Setujui RUU tentang Reformasi Birokrasi</h4>
+                        <p class="text-gray-600 text-sm mb-4">DPR menyetujui Rancangan Undang-Undang tentang Reformasi Birokrasi setelah melalui pembahasan intensif selama tiga bulan.</p>
                         <div class="flex items-center text-xs text-gray-500">
-                            <span>Budi Santoso</span>
+                            <span>Ahmad Fauzi</span>
                             <span class="mx-2">•</span>
-                            <span>3 jam yang lalu</span>
+                            <span>1 hari yang lalu</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- News Item 2 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1593115057322-e94b77572f20?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
                     <div class="p-4">
-                        <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-1 rounded mb-2">HIBURAN</span>
-                        <h4 class="font-bold text-gray-800 mb-2">Film "Negeri di Ujung Tanduk" Raih Penghargaan Internasional</h4>
-                        <p class="text-gray-600 text-sm mb-4">Film karya sineas Indonesia berhasil meraih penghargaan di Festival Film Cannes untuk kategori film terbaik.</p>
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded mb-2">POLITIK</span>
+                        <h4 class="font-bold text-gray-800 mb-2">Pemerintah Siapkan Strategi Baru Penanganan Konflik Regional</h4>
+                        <p class="text-gray-600 text-sm mb-4">Kementerian Luar Negeri mengumumkan strategi baru dalam menangani konflik di kawasan untuk menjaga stabilitas regional.</p>
                         <div class="flex items-center text-xs text-gray-500">
-                            <span>Dewi Lestari</span>
+                            <span>Maria Sari</span>
                             <span class="mx-2">•</span>
-                            <span>5 jam yang lalu</span>
+                            <span>2 hari yang lalu</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- News Item 3 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
                     <div class="p-4">
-                        <span class="inline-block bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded mb-2">BISNIS</span>
-                        <h4 class="font-bold text-gray-800 mb-2">Perusahaan Teknologi Buka 1.000 Lowongan Kerja Baru</h4>
-                        <p class="text-gray-600 text-sm mb-4">Perusahaan teknologi terkemuka mengumumkan ekspansi besar-besaran dengan membuka 1.000 lowongan kerja di berbagai bidang.</p>
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded mb-2">POLITIK</span>
+                        <h4 class="font-bold text-gray-800 mb-2">Partai Politik Mulai Siapkan Calon untuk Pemilu 2024</h4>
+                        <p class="text-gray-600 text-sm mb-4">Berbagai partai politik mulai menyiapkan kader terbaiknya untuk mengikuti pemilihan umum legislatif dan eksekutif tahun 2024.</p>
                         <div class="flex items-center text-xs text-gray-500">
-                            <span>Rina Wijaya</span>
+                            <span>Bambang Sutrisno</span>
                             <span class="mx-2">•</span>
-                            <span>8 jam yang lalu</span>
+                            <span>3 hari yang lalu</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
         
-        <!-- Category Section -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-blue-500 inline-block">Kategori Berita</h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="#" class="bg-white rounded-lg shadow p-6 text-center hover:bg-blue-50 transition duration-300">
-                    <i class="fas fa-landmark text-blue-600 text-2xl mb-3"></i>
-                    <h3 class="font-bold text-gray-800">Politik</h3>
-                </a>
-                <a href="#" class="bg-white rounded-lg shadow p-6 text-center hover:bg-green-50 transition duration-300">
-                    <i class="fas fa-chart-line text-green-600 text-2xl mb-3"></i>
-                    <h3 class="font-bold text-gray-800">Ekonomi</h3>
-                </a>
-                <a href="#" class="bg-white rounded-lg shadow p-6 text-center hover:bg-purple-50 transition duration-300">
-                    <i class="fas fa-laptop-code text-purple-600 text-2xl mb-3"></i>
-                    <h3 class="font-bold text-gray-800">Teknologi</h3>
-                </a>
-                <a href="#" class="bg-white rounded-lg shadow p-6 text-center hover:bg-yellow-50 transition duration-300">
-                    <i class="fas fa-running text-yellow-600 text-2xl mb-3"></i>
-                    <h3 class="font-bold text-gray-800">Olahraga</h3>
-                </a>
+        <!-- Ekonomi Page -->
+        <div id="ekonomi" class="page-content hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 pb-2 border-b-2 border-blue-500 inline-block">Berita Ekonomi</h2>
+                <button class="text-blue-600 hover:text-blue-800 font-medium flex items-center" onclick="showPage('beranda')">
+                    <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda
+                </button>
             </div>
-        </section>
-        
-        <!-- Popular News -->
-        <section>
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-blue-500 inline-block">Berita Populer</h2>
             
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                    <!-- Popular Item 1 -->
-                    <div class="border-r border-gray-200 p-4">
-                        <div class="flex items-start">
-                            <span class="text-2xl font-bold text-blue-600 mr-3">1</span>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Pemerintah Umumkan Bantuan Sosial Tahap Kedua</h4>
-                                <p class="text-gray-600 text-sm">2.5K dilihat</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Popular Item 2 -->
-                    <div class="border-r border-gray-200 p-4">
-                        <div class="flex items-start">
-                            <span class="text-2xl font-bold text-blue-600 mr-3">2</span>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Harga Emas Dunia Capai Rekor Tertinggi</h4>
-                                <p class="text-gray-600 text-sm">1.8K dilihat</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Popular Item 3 -->
-                    <div class="border-r border-gray-200 p-4">
-                        <div class="flex items-start">
-                            <span class="text-2xl font-bold text-blue-600 mr-3">3</span>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Rilis Smartphone Flagship dengan Fitur AI Terbaru</h4>
-                                <p class="text-gray-600 text-sm">1.5K dilihat</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Popular Item 4 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Economy News Items -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
                     <div class="p-4">
-                        <div class="flex items-start">
-                            <span class="text-2xl font-bold text-blue-600 mr-3">4</span>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Persib Juara Liga 1 Musim Ini</h4>
-                                <p class="text-gray-600 text-sm">1.2K dilihat</p>
-                            </div>
+                        <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded mb-2">EKONOMI</span>
+                        <h4 class="font-bold text-gray-800 mb-2">Pertumbuhan Ekonomi Kuartal III Capai 5,2%</h4>
+                        <p class="text-gray-600 text-sm mb-4">Badan Pusat Statistik mengumumkan pertumbuhan ekonomi Indonesia pada kuartal III tahun ini mencapai 5,2%, melampaui proyeksi awal.</p>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span>Rizki Pratama</span>
+                            <span class="mx-2">•</span>
+                            <span>4 jam yang lalu</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                    <div class="p-4">
+                        <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded mb-2">EKONOMI</span>
+                        <h4 class="font-bold text-gray-800 mb-2">Nilai Ekspor Naik 12% di Tengah Tantangan Global</h4>
+                        <p class="text-gray-600 text-sm mb-4">Kementerian Perdagangan melaporkan kenaikan nilai ekspor sebesar 12% dibandingkan periode yang sama tahun lalu.</p>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span>Dian Sastro</span>
+                            <span class="mx-2">•</span>
+                            <span>1 hari yang lalu</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden news-card">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                    <div class="p-4">
+                        <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded mb-2">EKONOMI</span>
+                        <h4 class="font-bold text-gray-800 mb-2">Bank Sentral Pertahankan Suku Bunga Acuan</h4>
+                        <p class="text-gray-600 text-sm mb-4">Bank Indonesia memutuskan untuk mempertahankan suku bunga acuan di level 5,75% dalam rapat dewan gubernur kali ini.</p>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span>Adi Nugroho</span>
+                            <span class="mx-2">•</span>
+                            <span>2 hari yang lalu</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+        
+        <!-- Placeholder for other category pages -->
+        <div id="teknologi" class="page-content hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 pb-2 border-b-2 border-blue-500 inline-block">Berita Teknologi</h2>
+                <button class="text-blue-600 hover:text-blue-800 font-medium flex items-center" onclick="showPage('beranda')">
+                    <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda
+                </button>
+            </div>
+            <p class="text-center text-gray-500 py-8">Halaman teknologi sedang dalam pengembangan.</p>
+        </div>
+        
+        <div id="olahraga" class="page-content hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 pb-2 border-b-2 border-blue-500 inline-block">Berita Olahraga</h2>
+                <button class="text-blue-600 hover:text-blue-800 font-medium flex items-center" onclick="showPage('beranda')">
+                    <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda
+                </button>
+            </div>
+            <p class="text-center text-gray-500 py-8">Halaman olahraga sedang dalam pengembangan.</p>
+        </div>
+        
+        <div id="hiburan" class="page-content hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 pb-2 border-b-2 border-blue-500 inline-block">Berita Hiburan</h2>
+                <button class="text-blue-600 hover:text-blue-800 font-medium flex items-center" onclick="showPage('beranda')">
+                    <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda
+                </button>
+            </div>
+            <p class="text-center text-gray-500 py-8">Halaman hiburan sedang dalam pengembangan.</p>
+        </div>
     </main>
     
     <!-- Footer -->
@@ -248,7 +418,7 @@
                     <div class="flex items-center space-x-2 mb-4">
                         <i class="fas fa-newspaper text-blue-400 text-2xl"></i>
                         <h2 class="text-xl font-bold">Portal<span class="text-blue-400">Berita</span></h2>
-                    </div>]
+                    </div>
                     <p class="text-gray-400">Sumber informasi terpercaya dan terkini untuk masyarakat Indonesia.</p>
                     <div class="flex space-x-4 mt-4">
                         <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
@@ -261,11 +431,11 @@
                 <div>
                     <h3 class="text-lg font-bold mb-4">Kategori</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Politik</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Ekonomi</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Teknologi</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Olahraga</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Hiburan</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white" onclick="showPage('politik')">Politik</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white" onclick="showPage('ekonomi')">Ekonomi</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white" onclick="showPage('teknologi')">Teknologi</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white" onclick="showPage('olahraga')">Olahraga</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white" onclick="showPage('hiburan')">Hiburan</a></li>
                     </ul>
                 </div>
                 
@@ -297,6 +467,39 @@
             </div>
         </div>
     </footer>
-</body>
-</html>]
 
+    <script>
+        // Fungsi untuk menampilkan halaman tertentu
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Tampilkan halaman yang dipilih
+            document.getElementById(pageId).classList.remove('hidden');
+            
+            // Update navigasi aktif
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active-nav');
+            });
+            
+            // Set navigasi yang aktif (khusus untuk beranda)
+            if (pageId === 'beranda') {
+                document.querySelectorAll('.nav-item')[0].classList.add('active-nav');
+            }
+        }
+        
+        // Fungsi untuk toggle menu mobile
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        // Inisialisasi halaman beranda sebagai default
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('beranda');
+        });
+    </script>
+</body>
+</html>
